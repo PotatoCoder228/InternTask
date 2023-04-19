@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './TableStyle.css';
 import axiosInstance from "../axios/Axios";
 
 export function Table({table, setTable}) {
+
+    const [index, setIndex] = useState(0);
 
     const dynamicTable = (array) => {
         return array.map((data) => {
@@ -15,6 +17,51 @@ export function Table({table, setTable}) {
             )
         })
     }
+
+     const onTableInputPrev = (e) => {
+        e.preventDefault();
+        axiosInstance.post("/previous",
+            {
+                name: "заглушка",
+                currentIndex: index
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        ).then(function (response) {
+            if (response.status === 200) {
+                let array = response.data.persons;
+                setTable(dynamicTable(array));
+                let buf = index-10;
+                if(buf<0){
+                    buf = 0;
+                }
+                setIndex(buf);
+            }
+        });
+    }
+     const onTableInputNext = (e) => {
+        e.preventDefault();
+        axiosInstance.post("/previous",
+            {
+                name: "заглушка",
+                currentIndex: index
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        ).then(function (response) {
+            if (response.status === 200) {
+                let array = response.data.persons;
+                setTable(dynamicTable(array));
+                setIndex(index+10);
+            }
+        });
+     }
 
     const onTableInputSubmit = (e) => {
         e.preventDefault();
@@ -32,6 +79,7 @@ export function Table({table, setTable}) {
             if (response.status === 200) {
                 let array = response.data.persons;
                 setTable("");
+                setIndex(10);
             }
         });
 
@@ -52,7 +100,11 @@ export function Table({table, setTable}) {
             <div className="Columns">
                 {table}
             </div>
-            <input id="TableInputSubmit" type="submit" onClick={onTableInputSubmit} value="Очистить"/>
+            <div className="TableInputs">
+                <input id="TableInputSubmit" type="submit" onClick={onTableInputPrev} value="Предыдущие"/>
+                <input id="TableInputSubmit" type="submit" onClick={onTableInputSubmit} value="Очистить"/>
+                <input id="TableInputSubmit" type="submit" onClick={onTableInputNext} value="Следующие"/>
+            </div>
         </div>
     )
 }

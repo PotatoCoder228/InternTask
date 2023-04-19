@@ -3,6 +3,7 @@ package ru.itmo.potatocoder228.naumen_task.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import net.minidev.json.parser.ParseException;
 import org.postgresql.util.PSQLException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +19,7 @@ import ru.itmo.potatocoder228.naumen_task.exceptions.InvalidParseException;
 import ru.itmo.potatocoder228.naumen_task.services.PersonService;
 import ru.itmo.potatocoder228.naumen_task.utils.Parser;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,17 +37,25 @@ public class PersonsController {
     }
 
     @PostMapping("/person")
-    public ResponseDto getPersonAge(@RequestBody PersonRequestDto dto) {
+    public ResponseDto getPersonAge(@RequestBody PersonRequestDto dto) throws IOException, ParseException {
         ResponseDto newDto = new ResponseDto();
         newDto.setPersonAge(personService.getPersonAge(dto));
-        newDto.setPersons(personService.getNextTenPeoples(dto));
+        List<PersonEntity> list = personService.getNextTenPeoples(dto);
+        list.sort((a, b) -> {
+                return a.getAge() > b.getAge() ? -1 : 1;
+            });
+        newDto.setPersons(list);
         return newDto;
     }
 
     @PostMapping("/previous")
     public ResponseDto getPrevTenPersons(@RequestBody PersonRequestDto dto) {
         ResponseDto newDto = new ResponseDto();
-        newDto.setPersons(personService.getPrevTenPeoples(dto));
+        List<PersonEntity> list = personService.getPrevTenPeoples(dto);
+        list.sort((a, b) -> {
+                return a.getAge() > b.getAge() ? -1 : 1;
+            });
+        newDto.setPersons(list);
         return newDto;
     }
 
@@ -66,6 +76,9 @@ public class PersonsController {
             for (int i = 0; i < persons.size() && i < 10; i++) {
                 responseList.add(persons.get(i));
             }
+            responseList.sort((a, b) -> {
+                return a.getAge() > b.getAge() ? -1 : 1;
+            });
             newDto.setPersons(responseList);
         } else {
             throw new InvalidFileException("Не удалось загрузить файл!");
@@ -77,7 +90,11 @@ public class PersonsController {
     public ResponseDto clearPersonsFromDb(@RequestBody PersonRequestDto dto) {
         ResponseDto newDto = new ResponseDto();
         newDto.setResponse(personService.clearDb());
-        newDto.setPersons(personService.getNextTenPeoples(dto));
+        List<PersonEntity> list = personService.getNextTenPeoples(dto);
+        list.sort((a, b) -> {
+            return a.getAge() > b.getAge() ? -1 : 1;
+        });
+        newDto.setPersons(list);
         return newDto;
     }
 
@@ -100,7 +117,15 @@ public class PersonsController {
     }
 
     @ExceptionHandler(PSQLException.class)
-    ResponseEntity<ResponseDto> invalidParseException(PSQLException exception) {
+    ResponseEntity<ResponseDto> PSQLException(PSQLException exception) {
+        ResponseDto response = new ResponseDto();
+        response.setResponse(exception.getMessage());
+        exception.printStackTrace();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(response);
+    }
+    @ExceptionHandler(NullPointerException.class)
+    ResponseEntity<ResponseDto> NullPointerException(NullPointerException exception) {
         ResponseDto response = new ResponseDto();
         response.setResponse(exception.getMessage());
         exception.printStackTrace();
