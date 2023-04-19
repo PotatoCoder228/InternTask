@@ -4,7 +4,7 @@ import './TableStyle.css';
 export function Table() {
 
     const [table, setTable] = useState(<div className="Columns"></div>);
-    return(
+    return (
         <div className="TableBlock">
             <div id="TableDescription">
                 <p id="TableDecriptionText">Таблица</p>
@@ -17,7 +17,7 @@ export function Table() {
                 </div>
                 {table}
             </div>
-            <input id="TableInputSubmit" type = "submit" value="Очистить"/>
+            <input id="TableInputSubmit" type="submit" value="Очистить"/>
         </div>
     )
 }

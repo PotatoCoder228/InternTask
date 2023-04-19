@@ -3,7 +3,7 @@
     float: left;
 }
 
-#CreatorsName, #TaskName, #CreatorsUniversity{
+#CreatorsName, #TaskName, #CreatorsUniversity {
     text-align: center;
     height: 30px;
     max-height: 100px;

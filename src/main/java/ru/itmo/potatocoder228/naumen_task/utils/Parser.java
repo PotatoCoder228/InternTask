@@ -3,11 +3,12 @@ package ru.itmo.potatocoder228.naumen_task.utils;
 import lombok.AllArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 import ru.itmo.potatocoder228.naumen_task.entities.PersonEntity;
-import ru.itmo.potatocoder228.naumen_task.exceptions.InvalidFileException;
 import ru.itmo.potatocoder228.naumen_task.exceptions.InvalidParseException;
 
-import java.io.*;
-import java.nio.file.Path;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +38,11 @@ public class Parser {
         return false;
     }
 
-    public List<PersonEntity> parseFile(){
+    public List<PersonEntity> parseFile() {
         try {
             List<PersonEntity> personsList = new ArrayList<>();
             Scanner scanner = new Scanner(new File("uploaded"));
-            while(scanner.hasNext()){
+            while (scanner.hasNext()) {
                 String newline = scanner.nextLine();
                 String[] person = newline.split("_");
                 Integer age = Integer.parseInt(person[1]);
@@ -53,8 +54,7 @@ public class Parser {
             }
             scanner.close();
             return personsList;
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             throw new InvalidParseException("Не удалось распарсить файл");
         }
     }

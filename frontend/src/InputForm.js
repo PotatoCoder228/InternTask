@@ -3,16 +3,15 @@ import './InputFormStyle.css';
 
 export function InputForm() {
 
-    const[isName, setIsName]= useState(<p className="ErrorPlaceholder">Ожидаю действий</p>);
+    const [isName, setIsName] = useState(<p className="ErrorPlaceholder">Ожидаю действий</p>);
 
     const onInputFormSubmit = (e) => {
         let textField = document.getElementById("InputFormInputTextField");
         let text = textField.value;
         let pattern = /^([А-ЯЁ]|[A-Z])([a-z]|[а-яё])+$/;//Валидация имени пользователя
-        if(!pattern.test(text)){
+        if (!pattern.test(text)) {
             setIsName(<p className="ErrorPlaceholder" style={{color: "red"}}>Имя не прошло валидацию</p>)
-        }
-        else{
+        } else {
             setIsName(<p className="ErrorPlaceholder">Ожидаю действий</p>)
         }
         //else post
