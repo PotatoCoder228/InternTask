@@ -53,7 +53,8 @@
 .ColumnRow {
     display: table-row;
 }
-.ColumnCell{
+
+.ColumnCell {
     border: 1px solid white;
     display: table-cell;
     table-layout: fixed;

@@ -6,6 +6,17 @@ export function InputForm({table, setTable}) {
 
     const [isName, setIsName] = useState(<p className="StatPlaceholder">Ожидаю действий</p>);
 
+    const dynamicTable = (array) => {
+        return array.map((data) => {
+            return (
+                <div className="ColumnRow">
+                    <div className="ColumnCell">{data.name}</div>
+                    <div className="ColumnCell">{data.age}</div>
+                    <div className="ColumnCell">{data.requests}</div>
+                </div>
+            )
+        })
+    }
     const onInputFormSubmit = (e) => {
         e.preventDefault();
         let textField = document.getElementById("InputFormInputTextField");
@@ -30,14 +41,7 @@ export function InputForm({table, setTable}) {
                     setIsName(<p style={{color: "green"}} className="StatPlaceholder">Запрос прошёл успешно<br></br>Возраст
                         человека: {response.data.personAge}</p>);
                     let array = response.data.persons;
-                    let buf = "";
-                    for (let i = 0; i < array.size; i++) {
-                        buf += <div className="Columns">{array[i].name}</div>;
-                        buf += <div className="Columns">{array[i].age}</div>;
-                        buf += <div className="Columns">{array[i].requests}</div>;
-                    }
-                    setTable(buf);
-
+                    setTable(dynamicTable(array));
                 } else {
                     setIsName(<p style={{color: "green"}} className="StatPlaceholder">{response.data.result}</p>);
                 }

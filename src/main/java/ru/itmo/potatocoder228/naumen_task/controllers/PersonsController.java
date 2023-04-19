@@ -3,6 +3,7 @@ package ru.itmo.potatocoder228.naumen_task.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import org.postgresql.util.PSQLException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,7 @@ public class PersonsController {
     public ResponseDto getPersonAge(@RequestBody PersonRequestDto dto) {
         ResponseDto newDto = new ResponseDto();
         newDto.setPersonAge(personService.getPersonAge(dto));
+        newDto.setPersons(personService.getNextTenPeoples(dto));
         return newDto;
     }
 
@@ -75,6 +77,7 @@ public class PersonsController {
     public ResponseDto clearPersonsFromDb(@RequestBody PersonRequestDto dto) {
         ResponseDto newDto = new ResponseDto();
         newDto.setResponse(personService.clearDb());
+        newDto.setPersons(personService.getNextTenPeoples(dto));
         return newDto;
     }
 
@@ -89,6 +92,15 @@ public class PersonsController {
 
     @ExceptionHandler(InvalidParseException.class)
     ResponseEntity<ResponseDto> invalidParseException(InvalidParseException exception) {
+        ResponseDto response = new ResponseDto();
+        response.setResponse(exception.getMessage());
+        exception.printStackTrace();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(response);
+    }
+
+    @ExceptionHandler(PSQLException.class)
+    ResponseEntity<ResponseDto> invalidParseException(PSQLException exception) {
         ResponseDto response = new ResponseDto();
         response.setResponse(exception.getMessage());
         exception.printStackTrace();

@@ -21,10 +21,19 @@ public class PersonService {
         return "Записи удалены из БД";
     }
 
+    public List<PersonEntity> getFirstTenPeoples() {
+        List<PersonEntity> listOfPersonsByUser = dao.findAll();
+        List<PersonEntity> response = new ArrayList<>();
+        for (int i = 0; i < 10&&listOfPersonsByUser.size()>i; i++) {
+            response.add(listOfPersonsByUser.get(i));
+        }
+        return response;
+    }
+
     public List<PersonEntity> getNextTenPeoples(PersonRequestDto dto) {
         List<PersonEntity> listOfPersonsByUser = dao.findAll();
         List<PersonEntity> response = new ArrayList<>();
-        for (int i = 0; i < dto.getCurrentIndex() + 10; i++) {
+        for (int i = 0; i < dto.getCurrentIndex() + 10&&listOfPersonsByUser.size()>i; i++) {
             response.add(listOfPersonsByUser.get(i));
         }
         return response;
@@ -53,6 +62,11 @@ public class PersonService {
 
     public Integer getPersonAge(PersonRequestDto dto) {
         PersonEntity person = dao.findByName(dto.getName());
+        dao.delete(person);
+        Long buf = person.getRequests();
+        buf++;
+        person.setRequests(buf);
+        dao.save(person);
         return person.getAge();
     }
 }

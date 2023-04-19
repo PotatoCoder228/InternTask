@@ -17,9 +17,9 @@ export function FileForm({table, setTable}) {
         }
     }
 
-    const dynamicTable=(array)=>{
-        return array.map((data)=>{
-            return(
+    const dynamicTable = (array) => {
+        return array.map((data) => {
+            return (
                 <div className="ColumnRow">
                     <div className="ColumnCell">{data.name}</div>
                     <div className="ColumnCell">{data.age}</div>
@@ -43,10 +43,10 @@ export function FileForm({table, setTable}) {
             } else {
                 setFileStat(<div className="StatPlaceholder">Не удалось отправить файл</div>);
             }
-        }).catch = (c) => {
-            console.log(c.target.data);
+        }).catch = (function (error) {
+            console.log(error.target.data);
             setFileStat(<div style={{color: "red"}} className="StatPlaceholder">Не удалось отправить файл</div>);
-        };
+        });
 
     }
 
