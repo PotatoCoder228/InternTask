@@ -1,18 +1,24 @@
 package ru.itmo.potatocoder228.naumen_task.controllers;
 
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.itmo.potatocoder228.naumen_task.dto.FileResponseDto;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import ru.itmo.potatocoder228.naumen_task.dto.PersonRequestDto;
 import ru.itmo.potatocoder228.naumen_task.dto.ResponseDto;
+import ru.itmo.potatocoder228.naumen_task.entities.PersonEntity;
 import ru.itmo.potatocoder228.naumen_task.exceptions.InvalidFileException;
 import ru.itmo.potatocoder228.naumen_task.exceptions.InvalidParseException;
 import ru.itmo.potatocoder228.naumen_task.services.PersonService;
 import ru.itmo.potatocoder228.naumen_task.utils.Parser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -41,15 +47,24 @@ public class PersonsController {
         return newDto;
     }
 
-    @PostMapping("/update")
-    public ResponseDto uploadPersonsToDb(@RequestBody FileResponseDto dto, @RequestParam("file") MultipartFile file) {
+    @RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseDto updatePersonsToDb(HttpServletRequest request) {
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        MultipartFile file = multipartRequest.getFile("customFile");
+        System.out.println(file.getName());
         ResponseDto newDto = new ResponseDto();
         Parser parser = new Parser(file);
         boolean flag = parser.downloadFile();
         if (flag) {
             newDto.setResponse("Данные обновлены");
-            parser.parseFile();
+            List<PersonEntity> persons = parser.parseFile();
             personService.clearDb();
+            newDto.setResponse(personService.addPeoples(persons));
+            List<PersonEntity> responseList = new ArrayList<>();
+            for (int i = 0; i < persons.size() && i < 10; i++) {
+                responseList.add(persons.get(i));
+            }
+            newDto.setPersons(responseList);
         } else {
             throw new InvalidFileException("Не удалось загрузить файл!");
         }

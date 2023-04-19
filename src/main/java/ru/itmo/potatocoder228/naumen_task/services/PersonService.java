@@ -45,18 +45,14 @@ public class PersonService {
         return response;
     }
 
-    public String addPeoples(byte[] file) {
-        dao.deleteAll();
-
-        //работа с файлом.
+    public String addPeoples(List<PersonEntity> newPersons) {
+        dao.saveAll(newPersons);
+        dao.flush();
         return "Имена в БД обновлены";
     }
 
     public Integer getPersonAge(PersonRequestDto dto) {
         PersonEntity person = dao.findByName(dto.getName());
-        if (person != null) {
-            return person.getAge();
-        }
-        return 0;
+        return person.getAge();
     }
 }

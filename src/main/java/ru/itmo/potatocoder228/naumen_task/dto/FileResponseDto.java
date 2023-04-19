@@ -9,6 +9,5 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 @ToString
 public class FileResponseDto {
-    private String filename;
     private MultipartFile file;
 }

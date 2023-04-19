@@ -1,17 +1,20 @@
 import './App.css';
-import {Header} from "./Header"
-import {FileForm} from "./FileForm"
-import {InputForm} from "./InputForm"
-import {Table} from "./Table"
+import {Header} from "../header/Header"
+import {FileForm} from "../fileform/FileForm"
+import {InputForm} from "../inputform/InputForm"
+import {Table} from "../table/Table"
+import {useState} from "react";
 
 function App() {
+    const [table, setTable] = useState(<div className="Columns"></div>);
+
     return (
         <div className="App">
             <Header></Header>
             <div id="AppInteractiveZone">
-                <FileForm></FileForm>
-                <InputForm></InputForm>
-                <Table></Table>
+                <FileForm table={table} setTable={setTable}></FileForm>
+                <InputForm table={table} setTable={setTable}></InputForm>
+                <Table table={table} setTable={setTable}></Table>
             </div>
         </div>
     );

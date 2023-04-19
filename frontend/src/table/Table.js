@@ -1,9 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import './TableStyle.css';
 
-export function Table() {
-
-    const [table, setTable] = useState(<div className="Columns"></div>);
+export function Table({table, setTable}) {
     return (
         <div className="TableBlock">
             <div id="TableDescription">
@@ -15,8 +13,8 @@ export function Table() {
                     <div id="TableAgeColumn">Возраст</div>
                     <div id="TableRequestsCounterColumn">Количество<br></br>запросов</div>
                 </div>
-                {table}
             </div>
+            {table}
             <input id="TableInputSubmit" type="submit" value="Очистить"/>
         </div>
     )
