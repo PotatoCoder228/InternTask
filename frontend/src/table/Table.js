@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import './TableStyle.css';
 
 export function Table({table, setTable}) {
+
     return (
         <div className="TableBlock">
             <div id="TableDescription">

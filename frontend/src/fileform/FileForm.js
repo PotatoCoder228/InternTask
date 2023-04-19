@@ -27,13 +27,14 @@ export function FileForm({table, setTable}) {
             if (response.status === 200) {
                 setFileStat(<div className="StatPlaceholder">Файл отправлен</div>);
                 let array = response.data.persons;
-                let buf = "";
-                console.log(array[0].name);
-                for (let i = 0; i < array.size; i++) {
-                    buf += <div><div>{array[i].name}</div>;
-                    buf += <div>{array[i].age}</div>;
-                    buf += <div>{array[i].requests}</div></div>;
+                let buf = "<div>";
+                for (const element of array) {
+                    console.log(element.name);
+                    buf.innerhtml += "<div class='Columns'>{Array.prototype.toString(element.name)}</div>";
+                    buf.innerhtml += "<div class='Columns'>{element.age}</div>";
+                    buf.innerhtml += "<div class='Columns'>{element.requests}</div>";
                 }
+                buf.innerhtml+="</div>"
                 setTable(buf);
             } else {
                 setFileStat(<div className="StatPlaceholder">Не удалось отправить файл</div>);

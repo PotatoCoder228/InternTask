@@ -32,9 +32,9 @@ export function InputForm({table, setTable}) {
                     let array = response.data.persons;
                     let buf = "";
                     for (let i = 0; i < array.size; i++) {
-                        buf += <div>{array[i].name}</div>;
-                        buf += <div>{array[i].age}</div>;
-                        buf += <div>{array[i].requests}</div>;
+                        buf += <div className="Columns">{array[i].name}</div>;
+                        buf += <div className="Columns">{array[i].age}</div>;
+                        buf += <div className="Columns">{array[i].requests}</div>;
                     }
                     setTable(buf);
 
