@@ -1,0 +1,70 @@
+.TableBlock {
+    height: 500px;
+    border-right: whitesmoke 1px solid;
+    border-top: whitesmoke 1px solid;
+    border-bottom: whitesmoke 1px solid;
+    display: table-cell;
+    text-align: center;
+    position: relative;
+}
+
+#TableDescription{
+    border-bottom: whitesmoke 1px solid;
+}
+
+#TableInputSubmit{
+    height: 40px;
+    width: 140px;
+    transition: all 0.18s ease-in-out;
+    background: #616afb;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid white;
+    color: white;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 20px;
+}
+
+#TableInputSubmit:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+}
+
+#TableInputSubmit:hover {
+    background-color: #59be6e;
+}
+
+#TableInputSubmit:active {
+    background-color: #2E703A;
+}
+#TableHeaders{
+    display: table;
+    width: 100%;
+}
+
+.Columns{
+    display: table;
+    height: 405px;
+}
+
+#TableNameColumn,
+#TableAgeColumn,
+#TableRequestsCounterColumn{
+    display: table-cell;
+    table-layout: fixed;
+    box-sizing: border-box;
+    width: 33%;
+}
+#TableNameColumn{
+    border-bottom: whitesmoke 1px solid;
+    border-right: whitesmoke 1px solid;
+}
+
+#TableAgeColumn{
+    border-bottom: whitesmoke 1px solid;
+    border-right: whitesmoke 1px solid;
+}
+
+#TableRequestsCounterColumn{
+    border-bottom: whitesmoke 1px solid;
+}

@@ -1,0 +1,9 @@
+.App {
+    text-align: center;
+}
+
+#AppInteractiveZone {
+    display: table;
+    text-align: center;
+    width: 100%;
+}

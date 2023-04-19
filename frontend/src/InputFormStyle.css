@@ -1,0 +1,67 @@
+.InputFormBlock {
+    display: table-cell;
+    height: 500px;
+    text-align: center;
+    border-right: whitesmoke 1px solid;
+    border-bottom: whitesmoke 1px solid;
+    border-top: whitesmoke 1px solid;
+}
+
+#InputFormDescription {
+    border-bottom: whitesmoke 1px solid;
+}
+
+#InputFormInputs{
+    text-align: center;
+    height: 350px;
+}
+
+#InputFormInputTextField {
+    display: block;
+    width: 150px;
+    height: 30px;
+    padding: 0.375rem 0.75rem;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+}
+
+#InputFormSubmit {
+    height: 40px;
+    width: 140px;
+    transition: all 0.18s ease-in-out;
+    background: #616afb;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid white;
+    color: white;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 20px;
+}
+
+#ErrorPlaceholder{
+    padding-bottom: unset;
+}
+
+#InputFormSubmit:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+}
+
+#InputFormSubmit:hover {
+    background-color: #59be6e;
+}
+
+#InputFormSubmit:active {
+    background-color: #2E703A;
+}
