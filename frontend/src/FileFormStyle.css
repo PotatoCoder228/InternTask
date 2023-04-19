@@ -1,0 +1,52 @@
+.FileFormBlock{
+    height: 500px;
+    border: whitesmoke 1px solid;
+    display: table-cell;
+    width:33%;
+}
+
+#FileFormDescription{
+    border-bottom: whitesmoke 1px solid;
+}
+
+#FileFormDecriptionText{
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+#FileInputLabel{
+    width: 180px;
+    height: 50px;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    display: block;
+    font: 14px/50px Tahoma;
+    transition: all 0.18s ease-in-out;
+    border: 1px solid white;
+    color: whitesmoke;
+    margin-top: 30%;
+    margin-left: 35%;
+    color: white;
+    background: #616afb;
+}
+
+#FileInput{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+#FileInputLabel:focus{
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+#FileInputLabel:hover {
+	background-color: #59be6e;
+}
+#FileInputLabel:active{
+	background-color: #2E703A;
+}

@@ -1,0 +1,25 @@
+.HeaderLogo {
+    height: 40px;
+    float: left;
+}
+
+#CreatorsName, #TaskName, #CreatorsUniversity{
+    text-align: center;
+    height: 30px;
+    color: #616afb;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .HeaderLogo {
+        animation: HeaderLogoSpin infinite 20s linear;
+    }
+}
+
+@keyframes HeaderLogoSpin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
