@@ -23,7 +23,7 @@
     color: white;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 #TableInputSubmit:focus {
@@ -45,7 +45,20 @@
 
 .Columns {
     display: table;
-    height: 405px;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 250px;
+}
+
+.ColumnRow {
+    display: table-row;
+}
+.ColumnCell{
+    border: 1px solid white;
+    display: table-cell;
+    table-layout: fixed;
+    width: 33%;
+
 }
 
 #TableNameColumn,

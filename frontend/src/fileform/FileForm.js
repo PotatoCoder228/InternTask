@@ -17,6 +17,18 @@ export function FileForm({table, setTable}) {
         }
     }
 
+    const dynamicTable=(array)=>{
+        return array.map((data)=>{
+            return(
+                <div className="ColumnRow">
+                    <div className="ColumnCell">{data.name}</div>
+                    <div className="ColumnCell">{data.age}</div>
+                    <div className="ColumnCell">{data.requests}</div>
+                </div>
+            )
+        })
+    }
+
     const onFileFormInputSubmitClick = (e) => {
         e.preventDefault();
         let formData = new FormData();
@@ -27,15 +39,7 @@ export function FileForm({table, setTable}) {
             if (response.status === 200) {
                 setFileStat(<div className="StatPlaceholder">Файл отправлен</div>);
                 let array = response.data.persons;
-                let buf = "<div>";
-                for (const element of array) {
-                    console.log(element.name);
-                    buf.innerhtml += "<div class='Columns'>{Array.prototype.toString(element.name)}</div>";
-                    buf.innerhtml += "<div class='Columns'>{element.age}</div>";
-                    buf.innerhtml += "<div class='Columns'>{element.requests}</div>";
-                }
-                buf.innerhtml+="</div>"
-                setTable(buf);
+                setTable(dynamicTable(array));
             } else {
                 setFileStat(<div className="StatPlaceholder">Не удалось отправить файл</div>);
             }

@@ -15,7 +15,9 @@ export function Table({table, setTable}) {
                     <div id="TableRequestsCounterColumn">Количество<br></br>запросов</div>
                 </div>
             </div>
-            {table}
+            <div className="Columns">
+                {table}
+            </div>
             <input id="TableInputSubmit" type="submit" value="Очистить"/>
         </div>
     )
