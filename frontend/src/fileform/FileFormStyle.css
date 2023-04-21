@@ -14,11 +14,6 @@
     border-bottom: whitesmoke 1px solid;
 }
 
-#FileFormDecriptionText {
-    margin-left: 2%;
-    margin-right: 2%;
-}
-
 #FileFormInputLabel {
     width: 180px;
     height: 50px;
@@ -34,13 +29,6 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 100px;
-}
-
-#FileInput {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
 }
 
 #FileFormInputLabel:focus {

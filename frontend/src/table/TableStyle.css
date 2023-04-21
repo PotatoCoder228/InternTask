@@ -12,7 +12,7 @@
     border-bottom: whitesmoke 1px solid;
 }
 
-#TableInputSubmit {
+#TableInputNext, #TableInputPrev, #TableInputClear {
     height: 40px;
     width: 140px;
     transition: all 0.18s ease-in-out;
@@ -26,19 +26,19 @@
     margin-top: 20px;
 }
 
-#TableInputSubmit:focus {
+#TableInputNext:focus, #TableInputPrev:focus, #TableInputClear:focus {
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
 }
 
-#TableInputSubmit:hover {
+#TableInputNext:hover, #TableInputPrev:hover, #TableInputClear:hover {
     background-color: #59be6e;
 }
 
-#TableInputSubmit:active {
+#TableInputNext:active, #TableInputPrev:active, #TableInputClear:active {
     background-color: #2E703A;
 }
 
-.TableInputs{
+.TableInputs {
     position: absolute;
     width: 100%;
     bottom: 50px;

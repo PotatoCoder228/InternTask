@@ -3,6 +3,7 @@ package ru.itmo.potatocoder228.naumen_task.utils;
 import lombok.AllArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 import ru.itmo.potatocoder228.naumen_task.entities.PersonEntity;
+import ru.itmo.potatocoder228.naumen_task.exceptions.InvalidFileException;
 import ru.itmo.potatocoder228.naumen_task.exceptions.InvalidParseException;
 
 import java.io.BufferedOutputStream;
@@ -13,6 +14,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import static java.nio.file.Files.deleteIfExists;
 
@@ -44,6 +46,11 @@ public class Parser {
             Scanner scanner = new Scanner(new File("uploaded"));
             while (scanner.hasNext()) {
                 String newline = scanner.nextLine();
+                String pattern = "^([А-ЯЁ]|[A-Z])((([a-z]|[а-яё])+_\\d+$)|_\\S+$)";
+                boolean isValid = Pattern.matches(pattern, newline);
+                if (!isValid) {
+                    throw new InvalidFileException("Невалидная строка в файле:" + newline);
+                }
                 String[] person = newline.split("_");
                 Integer age = Integer.parseInt(person[1]);
                 PersonEntity entity = new PersonEntity();

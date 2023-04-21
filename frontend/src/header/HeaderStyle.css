@@ -3,7 +3,17 @@
     float: left;
 }
 
-#CreatorsName, #TaskName, #CreatorsUniversity {
+#TaskName {
+    text-align: center;
+    height: 30px;
+    padding-right: 2%;
+    max-height: 100px;
+    margin: 20px;
+    white-space: nowrap;
+    color: #616afb;
+}
+
+#CreatorsName, #CreatorsUniversity {
     text-align: center;
     height: 30px;
     max-height: 100px;

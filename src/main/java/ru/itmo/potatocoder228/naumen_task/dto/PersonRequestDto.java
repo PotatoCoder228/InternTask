@@ -9,6 +9,4 @@ import lombok.*;
 @ToString
 public class PersonRequestDto {
     private String name;
-
-    private Integer currentIndex;
 }

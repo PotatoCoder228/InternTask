@@ -11,11 +11,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebSecurity(debug = true)
 public class WebSecurityConfig implements WebMvcConfigurer {
-    //mvcMatchers, @EnableGlobalMethodSecurity was deprecated
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests()
-                .requestMatchers("/person", "/upload", "/next", "/previous", "/clear")
+                .requestMatchers("/person", "/upload", "/clear", "/download")
                 .permitAll()
                 .and()
                 .cors()

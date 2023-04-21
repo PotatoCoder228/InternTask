@@ -5,8 +5,8 @@ import './HeaderStyle.css';
 export function Header() {
     return (
         <div className="HeaderBlock">
-            <img className="HeaderLogo" src={logo} alt="Логотип React"/>
             <header className="AppHeader">
+                <img className="HeaderLogo" src={logo} alt="Логотип React"/>
                 <h1 id="TaskName">Тестовое задание</h1>
                 <h2 id="CreatorsName">Аталян Александр Эдуардович</h2>
                 <h3 id="CreatorsUniversity">Университет ИТМО, 2023</h3>

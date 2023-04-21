@@ -2,10 +2,14 @@ import React, {useState} from 'react';
 import './FileFormStyle.css';
 import axiosInstance from "../axios/Axios";
 
-export function FileForm({table, setTable}) {
+export function FileForm({setAllPersons, setIndex, setTable}) {
 
     const [fileStat, setFileStat] = useState(<div className="StatPlaceholder">Файл не загружен</div>);
     const [selectedData, setSelectedData] = useState(null);
+
+    const ageCompare = (a, b) => {
+        return (a.age > b.age) ? -1 : 1;
+    }
     const onFileInputLabelClick = (e) => {
         e.preventDefault();
         let fileInput = document.getElementById("FileFormInput");
@@ -19,13 +23,11 @@ export function FileForm({table, setTable}) {
 
     const dynamicTable = (array) => {
         return array.map((data) => {
-            return (
-                <div className="ColumnRow">
-                    <div className="ColumnCell">{data.name}</div>
-                    <div className="ColumnCell">{data.age}</div>
-                    <div className="ColumnCell">{data.requests}</div>
-                </div>
-            )
+            return (<div className="ColumnRow">
+                <div className="ColumnCell">{data.name}</div>
+                <div className="ColumnCell">{data.age}</div>
+                <div className="ColumnCell">{data.requests}</div>
+            </div>)
         })
     }
 
@@ -37,14 +39,20 @@ export function FileForm({table, setTable}) {
             headers: {"Content-Type": "multipart/form-data"},
         }).then(function (response) {
             if (response.status === 200) {
+                setIndex(0);
                 setFileStat(<div className="StatPlaceholder">Файл отправлен</div>);
                 let array = response.data.persons;
-                setTable(dynamicTable(array));
+                setAllPersons(array);
+                let offset = (array.length > 10) ? 10 : array.length;
+                console.log(0, offset);
+                array.sort(ageCompare);
+                setTable(dynamicTable(array.slice(0, offset)));
+                setIndex(10);
             } else {
                 setFileStat(<div className="StatPlaceholder">Не удалось отправить файл</div>);
             }
         }).catch = (function (error) {
-            console.log(error.target.data);
+            console.log(error.data.response);
             setFileStat(<div style={{color: "red"}} className="StatPlaceholder">Не удалось отправить файл</div>);
         });
 
@@ -62,18 +70,16 @@ export function FileForm({table, setTable}) {
         }
     }
 
-    return (
-        <div className="FileFormBlock">
-            <div id="FileFormDescription">
-                <p id="FileFormDecriptionText">Форма загрузки</p>
-            </div>
-            <div id="FileForm">
-                <label id="FileFormInputLabel" onClick={onFileInputLabelClick}>Загрузите файл</label>
-                {fileStat}
-                <input id="FileFormInput" onChange={onFileInputChange} accept=".txt" type="file"
-                       style={{display: "none"}}></input>
-            </div>
-            <input id="FileFormInputSubmit" onClick={onFileFormInputSubmitClick} type="submit" value="Отправить"/>
+    return (<div className="FileFormBlock">
+        <div id="FileFormDescription">
+            <p id="FileFormDecriptionText">Форма загрузки</p>
         </div>
-    )
+        <div id="FileForm">
+            <label id="FileFormInputLabel" onClick={onFileInputLabelClick}>Загрузите файл</label>
+            {fileStat}
+            <input id="FileFormInput" onChange={onFileInputChange} accept=".txt" type="file"
+                   style={{display: "none"}}></input>
+        </div>
+        <input id="FileFormInputSubmit" onClick={onFileFormInputSubmitClick} type="submit" value="Отправить"/>
+    </div>)
 }
